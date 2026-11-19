@@ -4,6 +4,8 @@ Application web progressive (**PWA**) et responsive permettant de gérer une lis
 
 L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme sur **mobile (iPhone/iOS et Android)**, en ligne et hors connexion.
 
+**L'application est directement exploitable depuis l'url <https://anniversaire.alwaysdata.net/> ou en téléchargeant les fichiers du projet.**
+
 ## ✨ Fonctionnalités principales
 
 ### Calculs automatiques
