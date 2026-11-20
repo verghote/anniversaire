@@ -1,9 +1,22 @@
-const CACHE_NAME = "anniversaires-pwa-cache-v2";
+const CACHE_NAME = "anniversaires-pwa-cache-v3";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
+  "./index.css",
   "./index.js",
+  "./contact.html",
+  "./anniversaire/",
+  "./anniversaire/index.html",
+  "./anniversaire/index.js",
+  "./anniversaire/style.css",
+  "./contact/",
+  "./contact/index.html",
+  "./contact/index.js",
+  "./contact/style.css",
+  "./contact/tailwind-config.js",
   "./manifest.json",
+  "https://cdn.tailwindcss.com",
+  "https://unpkg.com/lucide@latest",
   "https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js",
   "https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"
 ];
@@ -28,7 +41,7 @@ self.addEventListener("activate", (event) => {
       caches.keys().then((keys) =>
           Promise.all(
               keys
-                  .filter((key) => key !== CACHE_NAME)
+                  .filter((key) => key.startsWith("anniversaires-pwa-cache-") && key !== CACHE_NAME)
                   .map((key) => caches.delete(key))
           )
       )

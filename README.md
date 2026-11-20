@@ -1,12 +1,14 @@
-# 🎂 Gestionnaire d’anniversaires (PWA)
+# Mes applications : anniversaires et contacts (PWA)
 
-Application web progressive (**PWA**) et responsive permettant de gérer une liste d’anniversaires. Elle calcule automatiquement l’âge détaillé (années, mois et jours), le décompte avant le prochain anniversaire, le nombre de jours vécus et le jour de la semaine de naissance. Elle propose également l’édition directe dans le tableau, la recherche, l’import et l’export JSON, ainsi que l’export PDF par mois.
+Espace web responsive donnant accès à deux applications : un gestionnaire d’anniversaires et un répertoire de contacts. La page d’accueil est organisée en cartes pour accueillir d’autres applications.
+
+Le gestionnaire d’anniversaires calcule automatiquement l’âge détaillé, le décompte avant le prochain anniversaire, le nombre de jours vécus et le jour de naissance. Il propose l’ajout dans une fenêtre modale, l’édition directe dans le tableau, la recherche, l’import et l’export JSON, ainsi que l’export PDF par mois.
 
 L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme sur **mobile (iPhone/iOS et Android)**, en ligne et hors connexion.
 
 **L'application est directement exploitable depuis l'url <https://anniversaire.alwaysdata.net/> ou en téléchargeant les fichiers du projet.**
 
-## ✨ Fonctionnalités principales
+## ✨ Anniversaires
 
 ### Calculs automatiques
 
@@ -30,7 +32,7 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 
 ### Données et persistance
 
-- Au premier lancement, si `localStorage` est vide et que l’application est servie en HTTP ou HTTPS, elle tente de charger `./anniversaires.json` avec `fetch()`.
+- Au premier lancement, si `localStorage` est vide et que l’application est servie en HTTP ou HTTPS, elle tente de charger `anniversaire/anniversaires.json` avec `fetch()`.
 - Les ajouts, modifications et suppressions sont enregistrés dans `localStorage`, pour conserver les données sur l’appareil et permettre une utilisation hors connexion.
 - **« 📥 Importer JSON »** fusionne les données importées sans créer de doublons.
 - **« 📤 Exporter JSON »** permet de sauvegarder ou transférer les données.
@@ -42,6 +44,13 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 - Chaque page reprend le titre dans son en-tête et affiche la pagination (`Page X sur Y`) dans son pied de page.
 - Si les scripts PDF externes ne sont pas disponibles hors ligne, l’application utilise l’impression HTML (`window.print()`).
 
+## 📇 Contacts
+
+- Ajoutez ou modifiez un contact dans une fenêtre modale, recherchez-le par nom, numéro ou description et choisissez l’ordre d’affichage.
+- Les données sont enregistrées dans le `localStorage` du navigateur. Les contacts d’exemple sont chargés au premier lancement ; ils peuvent ensuite être remplacés ou supprimés.
+- Importez ou exportez une sauvegarde JSON. Le bouton **PDF** exporte tous les contacts, classés par nom, avec leur téléphone et leur description, indépendamment de la recherche et du tri affichés.
+- Si les bibliothèques PDF sont indisponibles, la fenêtre d’impression permet de choisir **Enregistrer en PDF**.
+
 ### Capacités PWA
 
 - `manifest.json` permet l’installation sur l’écran d’accueil ou le bureau.
@@ -51,15 +60,17 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 
 ```text
 .
-├── index.html          # Interface, styles responsive et styles d’impression
-├── index.js            # Logique, calculs, tri, édition, JSON, PDF et Service Worker
-├── manifest.json       # Métadonnées PWA et icônes
-├── sw.js               # Cache hors ligne et stratégie réseau pour anniversaires.json
-├── anniversaires.json  # Données initiales (facultatif)
+├── index.html          # Accueil et choix des applications
+├── accueil.css, index.js
+├── anniversaire/       # Interface, styles, logique et données initiales
+├── contact/            # Interface, styles et logique du répertoire
+├── contact.html        # Redirection depuis l’ancienne adresse
+├── manifest.json       # Métadonnées PWA
+├── sw.js               # Cache hors ligne commun
 └── README.md           # Documentation du projet
 ```
 
-## Format du fichier `anniversaires.json`
+## Format du fichier `anniversaire/anniversaires.json`
 
 Le fichier contient un tableau JSON d’objets avec une propriété `date` au format `JJ/MM/AAAA` et une propriété `nom` :
 
@@ -82,11 +93,11 @@ L’application est composée de fichiers statiques (HTML, CSS, JavaScript et JS
 
 ### Hébergement web
 
-Sur un hébergement tel qu’Alwaysdata, GitHub Pages, Netlify ou Vercel, placez tous les fichiers à la racine du répertoire web. L’accès en HTTPS active `fetch('./anniversaires.json')`, le Service Worker et l’installation PWA.
+Sur un hébergement tel qu’Alwaysdata, GitHub Pages, Netlify ou Vercel, conservez l’arborescence du projet dans le répertoire web. L’accès en HTTPS active le chargement du JSON initial, le Service Worker et l’installation PWA. Les données existantes restent disponibles lorsque le site conserve la même origine (protocole, domaine et port).
 
 ### Test local
 
-Pour tester `fetch('./anniversaires.json')` et le Service Worker en local, lancez un serveur dans le dossier du projet. Les navigateurs limitent souvent ces fonctionnalités avec une URL `file://`.
+Pour tester le chargement du JSON et le Service Worker en local, lancez un serveur dans le dossier du projet. Les navigateurs limitent souvent ces fonctionnalités avec une URL `file://`.
 
 ```bash
 python -m http.server 8000
@@ -96,7 +107,7 @@ Ouvrez ensuite <http://localhost:8000> dans votre navigateur.
 
 ### Mise à jour du cache
 
-Après avoir modifié `index.html`, `index.js` ou `manifest.json` sur le serveur, incrémentez `CACHE_NAME` dans `sw.js` (par exemple `anniversaires-pwa-cache-v3`) afin que les appareils téléchargent la nouvelle version.
+Après avoir modifié les ressources du site sur le serveur, incrémentez `CACHE_NAME` dans `sw.js` afin que les appareils téléchargent la nouvelle version. Le mode hors connexion nécessite une première visite en ligne ; les bibliothèques externes doivent avoir été mises en cache pour être disponibles hors ligne.
 
 ## 📱 Installer l’application (PWA)
 
@@ -130,4 +141,4 @@ L’application s’ouvre dans sa propre fenêtre et un raccourci est créé sur
 
 Les modifications effectuées dans le navigateur sont stockées dans `localStorage`, propre à chaque appareil et navigateur.
 
-Sur un hébergement statique, le navigateur ne peut pas réécrire `anniversaires.json` sur le serveur. Utilisez **Exporter JSON** pour sauvegarder les données à jour ou les transférer vers un autre appareil, puis **Importer JSON** pour les charger.
+Sur un hébergement statique, le navigateur ne peut pas réécrire `anniversaire/anniversaires.json` sur le serveur. Utilisez **Exporter JSON** dans chaque application pour sauvegarder ses données ou les transférer vers un autre appareil, puis **Importer JSON** pour les charger.

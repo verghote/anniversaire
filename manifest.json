@@ -1,7 +1,7 @@
 {
-  "name": "Gestionnaire d'Anniversaires",
-  "short_name": "Anniversaires",
-  "description": "Suivi des anniversaires, âges détaillés et export PDF groupé par mois.",
+  "name": "Mes applications",
+  "short_name": "Mes applications",
+  "description": "Un espace pour gérer les anniversaires et les contacts.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
