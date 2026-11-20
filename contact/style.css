@@ -1,0 +1,51 @@
+        /* Transitions fluides et scrollbar personnalisée */
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Animation d'apparition des toasts et modales */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(1rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-toast {
+            animation: slideInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+
+        #print-contacts { display: none; }
+        @media print {
+            @page { size: A4; margin: 15mm; }
+            body > * { display: none !important; }
+            body > #print-contacts { display: block !important; color: #1e293b; }
+            #print-contacts h1 { font-size: 20pt; margin-bottom: 15pt; }
+            #print-contacts table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+            #print-contacts th, #print-contacts td { border: 1px solid #cbd5e1; padding: 6pt; text-align: left; vertical-align: top; overflow-wrap: anywhere; white-space: pre-wrap; }
+            #print-contacts th { background: #e0e7ff; }
+            #print-contacts tr { break-inside: avoid; }
+        }

@@ -1,0 +1,112 @@
+:root {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #0f172a;
+    background: #f4f6f9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 80px 24px;
+}
+
+header {
+    margin-bottom: 36px;
+}
+
+.eyebrow {
+    color: #4f46e5;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-weight: 700;
+    font-size: .75rem;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 8px 0;
+}
+
+header p:not(.eyebrow), .application p, .privacy {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.applications {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 20px;
+}
+
+.application {
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    padding: 28px;
+    color: inherit;
+    text-decoration: none;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.application:hover, .application:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .1);
+}
+
+.application:focus-visible {
+    outline: 3px solid #4f46e5;
+    outline-offset: 3px;
+}
+
+.icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #dbeafe;
+    font-size: 1.6rem;
+}
+
+.contact-icon {
+    background: #e0e7ff;
+}
+
+.application h2 {
+    margin: 20px 0 0;
+    font-size: 1.3rem;
+}
+
+.application p {
+    margin: 8px 0 24px;
+}
+
+.link {
+    color: #4f46e5;
+    font-weight: 700;
+    margin-top: auto;
+}
+
+.privacy {
+    font-size: .85rem;
+    margin-top: 32px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 48px 18px;
+    }
+}

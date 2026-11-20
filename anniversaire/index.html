@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#2c3e50" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Anniversaires" />
+  <title>Gestionnaire d'Anniversaires</title>
+  <link rel="manifest" href="../manifest.json" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="app-container no-print">
+  <header>
+    <a class="home-link" href="../">← Accueil</a>
+    <h1>🎂 Gestionnaire d'Anniversaires</h1>
+    <span id="statusBadge" class="status-badge">Chargement...</span>
+  </header>
+
+  <div class="toolbar">
+    <button type="button" id="openBirthdayModal" class="btn-add">+ Nouvel anniversaire</button>
+  </div>
+  <dialog id="birthdayModal" aria-labelledby="birthdayModalTitle">
+    <form id="birthdayForm">
+      <div class="modal-heading">
+        <h2 id="birthdayModalTitle">Nouvel anniversaire</h2>
+        <button type="button" id="closeBirthdayModal" class="btn-clear" aria-label="Fermer">×</button>
+      </div>
+      <div class="form-grid">
+      <div class="field">
+        <label for="dateInput">Date de naissance</label>
+        <input type="date" id="dateInput" required />
+      </div>
+
+      <div class="field">
+        <label for="nameInput">Nom &amp; Prénom</label>
+        <input type="text" id="nameInput" placeholder="Ex. Camille Dupont" autocomplete="off" required />
+      </div>
+
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="cancelBirthdayModal" class="btn-clear">Annuler</button>
+        <button type="submit" id="addBtn" class="btn-add">Ajouter</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button type="button" id="upcomingBtn" class="btn-sort">📌 Trier par Prochains Anniversaires</button>
+      <input type="search" id="searchInput" class="search-input" placeholder="Rechercher un nom..." />
+    </div>
+
+    <div class="toolbar-group">
+      <button type="button" id="importJsonBtn" class="btn-io">📥 Importer JSON</button>
+      <button type="button" id="exportJsonBtn" class="btn-io">📤 Exporter JSON</button>
+      <button type="button" id="pdfBtn" class="btn-pdf">Générer le PDF</button>
+      <input type="file" id="jsonFileInput" accept=".json,application/json" hidden />
+    </div>
+  </div>
+
+  <div class="info-text">
+    Double-cliquez sur une Date ou un Nom dans le tableau pour modifier directement.
+  </div>
+
+  <div class="table-wrapper">
+    <table id="birthdayTable">
+      <thead>
+      <tr>
+        <th class="col-del" title="Supprimer">❌</th>
+        <th class="sortable center" data-col="date">Date de naissance ↕</th>
+        <th class="sortable" data-col="nom">Nom &amp; Prénom ↕</th>
+        <th class="sortable" data-col="age">Âge ↕</th>
+        <th class="sortable center" data-col="prochain">Prochain Ann. ↕</th>
+        <th class="sortable center" data-col="joursVecus">Jours vécus ↕</th>
+        <th class="sortable" data-col="jourNais">Jour de naissance ↕</th>
+      </tr>
+      </thead>
+      <tbody id="birthdayBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="printContainer" class="print-only"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>
