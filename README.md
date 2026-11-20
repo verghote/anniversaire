@@ -47,8 +47,9 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 ## 📇 Contacts
 
 - Ajoutez ou modifiez un contact dans une fenêtre modale, recherchez-le par nom, numéro ou description et choisissez l’ordre d’affichage.
-- Les données sont enregistrées dans le `localStorage` du navigateur. Les contacts d’exemple sont chargés au premier lancement ; ils peuvent ensuite être remplacés ou supprimés.
+- Les données sont enregistrées dans le `localStorage` du navigateur. Au premier lancement, en l’absence de sauvegarde locale, l’application charge `contact/contact.json`, vide par défaut. Une liste locale vide reste vide au redémarrage.
 - Importez ou exportez une sauvegarde JSON. Le bouton **PDF** exporte tous les contacts, classés par nom, avec leur téléphone et leur description, indépendamment de la recherche et du tri affichés.
+- Les anciens exports JSON utilisant `nomPrenom` restent importables, comme les contacts déjà enregistrés dans le navigateur.
 - Si les bibliothèques PDF sont indisponibles, la fenêtre d’impression permet de choisir **Enregistrer en PDF**.
 
 ### Capacités PWA
@@ -61,7 +62,7 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 ```text
 .
 ├── index.html          # Accueil et choix des applications
-├── accueil.css, index.js
+├── index.css, index.js
 ├── anniversaire/       # Interface, styles, logique et données initiales
 ├── contact/            # Interface, styles et logique du répertoire
 ├── contact.html        # Redirection depuis l’ancienne adresse
@@ -69,6 +70,22 @@ L’application fonctionne sur **ordinateur (Windows, macOS et Linux)** comme su
 ├── sw.js               # Cache hors ligne commun
 └── README.md           # Documentation du projet
 ```
+
+## Format du fichier `contact/contact.json`
+
+Le fichier initial et les exports contiennent un tableau JSON. Chaque contact comporte les trois champs suivants ; les identifiants internes ne sont pas exportés :
+
+```json
+[
+  {
+    "contact": "Martin Claire",
+    "telephone": "06 14 28 57 90",
+    "description": "Directrice de projet web"
+  }
+]
+```
+
+Pour initialiser un nouveau navigateur, renseignez ce fichier avant le premier accès. Le navigateur conserve ensuite ses propres modifications : changer le fichier sur le serveur ne remplace pas une sauvegarde locale existante.
 
 ## Format du fichier `anniversaire/anniversaires.json`
 
